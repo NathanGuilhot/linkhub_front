@@ -38,7 +38,7 @@ export function Dashboard() {
 
   useEffect(
     ()=>{
-      fetch(`http://localhost:3003/linkhub/user?token=${user_token}`).then((res)=>{
+      fetch(`${import.meta.env.VITE_SERVER_URL}/linkhub/user?token=${user_token}`).then((res)=>{
       if (!res.ok) {
         throw new Error('Something went wrong');
       }
@@ -140,7 +140,7 @@ export function Dashboard() {
         <label htmlFor="avatar_upload_input" className="cursor-pointer"><img src={`avatar/${avatar}`} className="bg-blue-300 w-20 h-20 rounded-full shadow"/></label>
         {isPremium?<img className="absolute -right-3 bottom-0 drop-shadow-xl w-9" src={starIcon} />:null}
       </form>
-      <a href={`http://localhost:5173/${user_id}`} target="_blank"
+      <a href={`${import.meta.env.VITE_SERVER_URL}/${user_id}`} target="_blank"
           className="absolute p-3 top-0 right-0 hover:underline cursor-pointer select-none shadow rounded-full m-2 bg-slate-100 hover:bg-slate-200">
         {"View your linkhub"}
       </a>
@@ -167,7 +167,7 @@ export function Dashboard() {
     {!isPremium && <a className="absolute bottom-0 p-5 bg-yellow-300 hover:bg-white rounded-full -mb-20 cursor-pointer select-none"
       onClick={()=>{
         setPremiumloading(true)
-        fetch("http://localhost:3003/pay/checkout", {
+        fetch(`${import.meta.env.VITE_SERVER_URL}/pay/checkout`, {
           method: "POST",
           mode: "cors",
           cache: "no-cache",
@@ -281,7 +281,7 @@ function SendUserToDB(user:{
   links: { id: number; text: string; target: string; color: string; }[]}, pFeedback:(_v:string)=>void){
     console.log("Sending user data to database...")
 
-    fetch("http://localhost:3003/linkhub/user", {
+    fetch(`${import.meta.env.VITE_SERVER_URL}/linkhub/user`, {
       method: "PUT",
       mode: "cors",
       cache: "no-cache",
@@ -341,7 +341,7 @@ function ScaleImageAndUpload(pValue:string, pUserToken:string, pCallBack:(_filen
 }
 
 function upload_image(pData:string, pUserToken:string, pCallBack:(_filename:string)=>void, pCallBackFeedback:(_value:string)=>void){
-  fetch("http://localhost:3003/linkhub/upload", {
+  fetch(`${import.meta.env.VITE_SERVER_URL}/linkhub/upload`, {
     method: "POST",
     mode: "cors",
     cache: "no-cache",

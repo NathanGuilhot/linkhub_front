@@ -25,7 +25,7 @@ export function ViewProfile() {
 
   useEffect(
     ()=>{
-      fetch(`http://localhost:3003/linkhub/user/public?name=${username_url}`).then((res)=>{
+      fetch(`${import.meta.env.VITE_SERVER_URL}/linkhub/user/public?name=${username_url}`).then((res)=>{
       if (!res.ok) {
         throw new Error('Something went wrong');
       }

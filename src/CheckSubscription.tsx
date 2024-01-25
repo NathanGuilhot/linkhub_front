@@ -5,7 +5,7 @@ export function CheckSubscription(pUserId:string, pSubEnd: number, pCallBack: (_
   } else {
     //Call API to recheck subscription status
     console.log("Checking subscription");
-    fetch(`http://localhost:3003/pay/subscription/${pUserId}`).then((res: any) => {
+    fetch(`${import.meta.env.VITE_SERVER_URL}/pay/subscription/${pUserId}`).then((res: any) => {
       if (!res.ok) {
         throw new Error('Something went wrong');
       }

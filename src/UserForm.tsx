@@ -89,7 +89,7 @@ async function LoginAction(pEmail:string, pPass:string, pCallBack:(_result:boole
     password: pPass
   }
 
-  const res = await fetch("http://localhost:3003/linkhub/user/login", {
+  const res = await fetch(`${import.meta.env.VITE_SERVER_URL}/linkhub/user/login`, {
     method: "POST",
     mode: "cors",
     cache: "no-cache",
@@ -116,7 +116,7 @@ async function RegisterAction(pName:string, pEmail:string, pPass:string, pPassCo
     password: pPass
   }
 
-  const res = await fetch("http://localhost:3003/linkhub/user", {
+  const res = await fetch(`${import.meta.env.VITE_SERVER_URL}/linkhub/user`, {
     method: "POST",
     mode: "cors",
     cache: "no-cache",
