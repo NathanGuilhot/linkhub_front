@@ -166,6 +166,7 @@ export function Dashboard() {
       />)}
     {!isPremium && <a className="absolute bottom-0 p-5 bg-yellow-300 hover:bg-white rounded-full -mb-20 cursor-pointer select-none"
       onClick={()=>{
+        if (premiumloading) return
         setPremiumloading(true)
         fetch(`${import.meta.env.VITE_SERVER_URL}/pay/checkout`, {
           method: "POST",
