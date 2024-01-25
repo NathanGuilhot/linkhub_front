@@ -165,13 +165,22 @@ export function RegisterForm() {
     }
   }, [loginSuccess]);
 
+  const username_regex = /^[a-z0-9]*$/;
+  const username_regex_filter = /[a-z0-9]*/g;
+
   return (
     <UserForm bottomLink={<Link to={"/login"}>Already have an account? <span className="text-blue-500">Login</span></Link>}>
       <h1 className="text-3xl font-bold">Register your LinkHub</h1>
-      <p>Give access to your personality with on link</p>
+      <p>Give access to your personality with one link</p>
       <form className="flex flex-col mt-3 mb-5">
         <input className="mb-2 mt-2 p-4 border-solid border-2 rounded" type="text" placeholder="Username (linkhub.com/yourname)"
-            defaultValue={name} onChange={(e)=>{setName(e.target.value)}}
+            defaultValue={name} onChange={(e)=>{
+              e.target.value = e.target.value.toLowerCase()
+              if (!username_regex.test(e.target.value)){
+                //NOTE(Nighten) The regex filter is used to prevent the user from copy-pasting wrong input into the field 
+                e.target.value = (e.target.value.match(username_regex_filter) || []).join('');
+              }
+              setName(e.target.value)}}
             onKeyDown={(e)=>{if (e.key == "Enter") SubmitAction()}}/>
         <input className="mb-2 mt-2 p-4 border-solid border-2 rounded" type="email" placeholder="Email"
             defaultValue={email} onChange={(e)=>{setEmail(e.target.value)}}

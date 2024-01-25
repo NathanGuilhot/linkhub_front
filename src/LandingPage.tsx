@@ -61,9 +61,10 @@ function LandingPageForm(){
     <>
     <form className="mt-3">
       <input className="rounded-md h-full p-4 text-lg" type="text" placeholder="linkhub.com/yourname" pattern="\w{2,16}" onChange={(e)=>{
-        // console.log(regex.test(e.target.value))
+
         e.target.value = e.target.value.toLowerCase()
         if (!regex.test(e.target.value)){
+          //NOTE(Nighten) The regex filter is used to prevent the user from copy-pasting wrong input into the field 
           e.target.value = (e.target.value.match(regex_filter) || []).join('');
         }
         setFormValue(e.target.value)
