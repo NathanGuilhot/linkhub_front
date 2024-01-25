@@ -329,7 +329,7 @@ function ScaleImageAndUpload(pValue:string, pUserToken:string, pCallBack:(_filen
           centerShift_x,centerShift_y,img.width*ratio, img.height*ratio);
 
       // Show resized image in preview element
-      var dataURI = canvas.toDataURL(filetype);
+      var dataURI = canvas.toDataURL(filetype, 0.5);
       
       upload_image(dataURI, pUserToken, pCallBack, pCallBackFeedback)
       // document.getElementById("preview").src = dataurl;
@@ -341,21 +341,25 @@ function ScaleImageAndUpload(pValue:string, pUserToken:string, pCallBack:(_filen
 }
 
 function upload_image(pData:string, pUserToken:string, pCallBack:(_filename:string)=>void, pCallBackFeedback:(_value:string)=>void){
-  fetch(`${import.meta.env.VITE_SERVER_URL}/linkhub/upload`, {
-    method: "POST",
-    mode: "cors",
-    cache: "no-cache",
-    credentials: "same-origin",
-    headers: {
-    "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      token: pUserToken,
-      data: pData
-    })
-  }).then((res:any)=>{if (res.ok) res.json().then((data:any)=>{
-    pCallBack(data.filename)
-    RunFeedBackAnimation(pCallBackFeedback)
-  })})
+  try{
+    fetch(`${import.meta.env.VITE_SERVER_URL}/linkhub/upload`, {
+      method: "POST",
+      mode: "cors",
+      cache: "no-cache",
+      credentials: "same-origin",
+      headers: {
+      "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        token: pUserToken,
+        data: pData
+      })
+    }).then((res:any)=>{if (res.ok) res.json().then((data:any)=>{
+      pCallBack(data.filename)
+      RunFeedBackAnimation(pCallBackFeedback)
+    })})
+  }catch(err){
+    console.log(err)
+  }
 
 }
