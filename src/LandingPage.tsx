@@ -19,32 +19,32 @@ function LandingPageBody(props: { setMenuOpen: (_v: boolean) => void; }) {
     </div>
     <div className="p-5 bg-pink-200 w-full min-h-screen">
       <h1 className="max-w-xl text-5xl text-purple-900 font-bold mt-10 main_font">React + Tailwind for a clear design</h1>
-      <p className="max-w-xl mt-5 mb-10">- React router for the routing</p>
-      <p className="max-w-xl mt-5 mb-10">- Tailwind + Vite compilation = Very tiny css; was pleasantly surprised by the flexibility of micro-classes, who make a lot of sense in a component based UI framework</p>
-      <a className="bg-purple-900 p-5 mt-20 rounded-full text-white cursor-pointer select-none">Get started for free</a>
+      <p className="max-w-xl mt-5 mb-10">The whole UI of the application has been developed with state-of-the-art tools such as Vite for the live server, React for the component based UI, React Router Dom to handle the application routing, and Tailwind for the CSS.</p>
+      <p className="max-w-xl mt-5 mb-10">Combining Tailwind and Vite's compilation allows for a very optimized file size for the whole project, improving load performance, which is something I care about.</p>
+      <Link className="bg-purple-900 p-5 mt-20 rounded-full text-white cursor-pointer select-none" to={"/register"}>Get started for free</Link>
     </div>
     <div className="p-5 bg-red-900 w-full min-h-screen">
       <h1 className="max-w-xl text-5xl text-pink-200 font-bold mt-10 main_font">Secure login and API, from scratch</h1>
-      <p className="max-w-xl mt-5 mb-10 text-pink-200"> Input validated on the front and backend</p>
-	    <p className="max-w-xl mt-5 mb-10 text-pink-200">- Encrypted passwords in db</p>
-	    <p className="max-w-xl mt-5 mb-10 text-pink-200">- All private route necessitate a valid JWT</p>
-	    <p className="max-w-xl mt-5 mb-10 text-pink-200">- All secrets are stored in env variables</p>
-      <a className="bg-pink-200 p-5 mt-20 rounded-full text-black cursor-pointer select-none">Get started for free</a>
+      <p className="max-w-xl mt-5 mb-10 text-pink-200">API Security was one of the major learning goal for this project.</p>
+	    <p className="max-w-xl mt-5 mb-10 text-pink-200">This manifests itself in multiple ways, such as obviously encrypting the password in the database, and verifying all API routes with a JSON Web Token (JWT).</p>
+	    <p className="max-w-xl mt-5 mb-10 text-pink-200">JWT encryption allows each user to have a token that cannot be tampered with, and thus allowing us to authenticate the user for each of the sensitive API calls in a simple way.</p>
+	    <p className="max-w-xl mt-5 mb-10 text-pink-200">All secret variables, such as the encryption and API keys, are stored in an environment variable to allow the project to be fully open sourced without compromising its security.</p>
+      <Link className="bg-pink-200 p-5 mt-20 rounded-full text-black cursor-pointer select-none" to={"/register"}>Get started for free</Link>
     </div>
     <div className="p-5 bg-pink-200 w-full min-h-screen">
       <h1 className="max-w-xl text-5xl text-purple-900 font-bold mt-10 main_font">Stripe API for subscription</h1>
-      <p className="max-w-xl mt-5 mb-10">Each costumer have an associated Stripe id which allow to track</p>
-      <p className="max-w-xl mt-5 mb-10">- Subscription</p>
-      <p className="max-w-xl mt-5 mb-10">- We store the end of the current period, this way we reduce latency by only calling the stripe API when the day of the last stored period is over</p>
-      <p className="max-w-xl mt-5 mb-10">- Integration was very straight forward</p>
-      <a className="bg-purple-900 p-5 mt-20 rounded-full text-white cursor-pointer select-none">Get started for free</a>
+      <p className="max-w-xl mt-5 mb-10">Integrating the payment API Stripe was also a major goal for this project.</p>
+      <p className="max-w-xl mt-5 mb-10">I incorporated a subscription by creating a Stripe Costumer profile for each new person joining the website. I then only store the end date of the current subscription period, this way we only have to call the Stripe API again once this period is over, reducing latency and data usage.</p>
+      <p className="max-w-xl mt-5 mb-10">Learning and integrating the API was overall straightforward, I would gladly recommend it and use it again myself in future projects.</p>
+      <Link className="bg-purple-900 p-5 mt-20 rounded-full text-white cursor-pointer select-none" to={"/register"}>Get started for free</Link>
     </div>
     <div className="p-5 bg-red-900 w-full min-h-screen">
       <h1 className="max-w-xl text-5xl text-pink-200 font-bold mt-10 main_font">Image uploading and rescaling</h1>
-      <p className="max-w-xl mt-5 mb-10 text-pink-200">Always an image sent to the server because I process the resizing on the client side with the canva api</p>
-      <p className="max-w-xl mt-5 mb-10 text-pink-200">Unique filename to avoid duplicated image</p>
-      <p className="max-w-xl mt-5 mb-10 text-pink-200">Protected by JWT</p>
-      <a className="bg-pink-200 p-5 mt-20 rounded-full text-black cursor-pointer select-none">Get started for free</a>
+      <p className="max-w-xl mt-5 mb-10 text-pink-200">In addition to the CRUD functionalities, I also implemented the ability to upload a custom profile picture to the server.</p>
+      <p className="max-w-xl mt-5 mb-10 text-pink-200">Any kind of user-facing interactions with the server represents a major security concern; that's why **the raw file is never sent to the server**: instead, it goes through a rescale function that uses the browser canvas API. The image is rescaled, the raw pixels are captured and compressed, and only then sent to the server and saved on disk.</p>
+      <p className="max-w-xl mt-5 mb-10 text-pink-200">The upload route obviously requires a valid JWT, preventing a malicious user from affecting other accounts.</p>
+      <p className="max-w-xl mt-5 mb-10 text-pink-200">Furthermore, the name of the individual images are set to the hash MD5 of the image; this prevents what could be a SQL or XSS injection through a malicious filename. This also avoids storing the exact same image twice, saving space on the disk.</p>
+      <Link className="bg-pink-200 p-5 mt-20 rounded-full text-black cursor-pointer select-none" to={"/register"}>Get started for free</Link>
     </div>
   </div>);
 }
