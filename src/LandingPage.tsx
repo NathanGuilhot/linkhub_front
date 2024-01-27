@@ -46,6 +46,13 @@ function LandingPageBody(props: { setMenuOpen: (_v: boolean) => void; }) {
       <p className="max-w-xl mt-5 mb-10 text-pink-200">Furthermore, the name of the individual images are set to the hash MD5 of the image; this prevents what could be a SQL or XSS injection through a malicious filename. This also avoids storing the exact same image twice, saving space on the disk.</p>
       <Link className="bg-pink-200 p-5 mt-20 rounded-full text-black cursor-pointer select-none" to={"/register"}>Get started for free</Link>
     </div>
+    <div className="p-5 bg-white w-full">
+      <h1 className="max-w-xl text-5xl text-pink-800 font-bold mt-10 mb-10 main_font">More about the project</h1>
+      <p className="max-w-xl mt-5 hover:underline"><a target="_blank" href="https://github.com/NightenDushi/linkhub_front">→ Github (front-end)</a></p>
+      <p className="max-w-xl mt-5 hover:underline"><a target="_blank" href="https://github.com/NightenDushi/linkhub_back">→ Github (back-end)</a></p>
+      <p className="max-w-xl mt-5 hover:underline mb-10"><a target="_blank" href="/cv/CV - GUILHOT Nathan Full-Stack Developer.pdf">→ My CV/Resume</a></p>
+      <p className="mt-10 mb-10"><a target="_blank" className="bg-pink-800 hover:bg-pink-700 text-white p-5 rounded-full text-black cursor-pointer select-none" href="mailto:nathan.guilhot@gmx.fr">Send me an Email!</a></p>
+    </div>
   </div>);
 }
 
