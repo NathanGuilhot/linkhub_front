@@ -54,10 +54,10 @@ export function LoginForm() {
             defaultValue={email} onChange={(e)=>{setEmail(e.target.value)}}
             onKeyDown={(e)=>{if (e.key == "Enter") SubmitAction()}}/>
       <div className="w-full relative">
-        <input id="InputPass" className="w-full mb-2 mt-2 p-4 border-solid border-2 rounded" type="password" placeholder="Password"
+        <input id="InputPass" className="w-full mb-2 mt-2 p-4 border-solid border-2 rounded" type={passVisible?"text":"password"} placeholder="Password"
             defaultValue={password} onChange={(e)=>{setPass(e.target.value)}}
             onKeyDown={(e)=>{if (e.key == "Enter") SubmitAction()}}/>
-        <span className="absolute top-6 right-5 text-blue-500 cursor-pointer select-none" onClick={()=>{TogglePasswordVisibility("InputPass", setPassVisible)}}>{passVisible?"hide":"show"}</span>
+        <span className="absolute top-6 right-5 text-blue-500 cursor-pointer select-none" onClick={()=>{setPassVisible((v)=>!v)}}>{passVisible?"hide":"show"}</span>
       </div>
       <Link className="text-blue-500 mt-2" to={"/"}>Forgot password?</Link>
     </form>
@@ -69,18 +69,6 @@ export function LoginForm() {
 
 function DemoLoginButton(props:{setLoginSuccess:(_v:boolean)=>void}) {
   return <a className="p-3 bg-green-500 text-white rounded-full text-center cursor-pointer select-none mt-2" onClick={async () => { LoginAction("demo@demo.com", "demo", props.setLoginSuccess); } }>Login with demo account</a>;
-}
-
-function TogglePasswordVisibility(pInputId:string, pSetPassVisible:(_v:boolean)=>void){
-  const input:HTMLInputElement|null = document.getElementById(pInputId) as HTMLInputElement;
-  if (input===null) return;
-  if (input.type === "password") {
-    pSetPassVisible(true)
-    input.type = "text";
-  } else {
-    pSetPassVisible(false)
-    input.type = "password";
-  }
 }
 
 async function LoginAction(pEmail:string, pPass:string, pCallBack:(_result:boolean)=>void){
@@ -187,24 +175,20 @@ export function RegisterForm() {
             defaultValue={email} onChange={(e)=>{setEmail(e.target.value)}}
             onKeyDown={(e)=>{if (e.key == "Enter") SubmitAction()}}/>
         <div className="w-full relative">
-          <input id="InputPass" className="w-full mb-2 mt-2 p-4 border-solid border-2 rounded" type="password" placeholder="Password"
+          <input id="InputPass" className="w-full mb-2 mt-2 p-4 border-solid border-2 rounded" type={passVisible?"text":"password"} placeholder="Password"
             defaultValue={password} onChange={(e)=>{setPass(e.target.value)}}
             onKeyDown={(e)=>{if (e.key == "Enter") SubmitAction()}}/>
-          <span className="absolute top-6 right-5 text-blue-500 cursor-pointer select-none" onClick={()=>{TogglePasswordVisibility("InputPass", setPassVisible)}}>{passVisible?"hide":"show"}</span>
+          <span className="absolute top-6 right-5 text-blue-500 cursor-pointer select-none" onClick={()=>{setPassVisible((v)=>!v)}}>{passVisible?"hide":"show"}</span>
         </div>
         <div className="w-full relative">
-          <input id="InputPassConfirm" className="w-full mb-2 mt-2 p-4 border-solid border-2 rounded" type="password" placeholder="Confirm"
+          <input id="InputPassConfirm" className="w-full mb-2 mt-2 p-4 border-solid border-2 rounded" type={passConfirmVisible?"text":"password"} placeholder="Confirm"
               defaultValue={password_confirm} onChange={(e)=>{setPassConfirm(e.target.value)}}
               onKeyDown={(e)=>{if (e.key == "Enter") SubmitAction()}}/>
-          <span className="absolute top-6 right-5 text-blue-500 cursor-pointer select-none" onClick={()=>{TogglePasswordVisibility("InputPassConfirm", setPassConfirmVisible)}}>{passConfirmVisible?"hide":"show"}</span>
+          <span className="absolute top-6 right-5 text-blue-500 cursor-pointer select-none" onClick={()=>{setPassConfirmVisible((v)=>!v)}}>{passConfirmVisible?"hide":"show"}</span>
         </div>
       </form>
       <a className="p-3 bg-blue-500 text-white rounded-full text-center select-none" href="#" onClick={()=>{SubmitAction()}}>Join now</a>
       <DemoLoginButton setLoginSuccess={setLoginSuccess} />
-      {/* <hr className="m-5"/>
-      <Link className="p-3 bg-white text-black rounded-full text-center border-solid border-2 select-none" to={"/"} onClick={() => {}}>
-        Login with Github
-      </Link> */}
     </UserForm>
     )
 }
