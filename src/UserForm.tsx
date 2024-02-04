@@ -57,17 +57,16 @@ export function LoginForm() {
             defaultValue={password} onChange={(e)=>{setPass(e.target.value)}}/>
         <span className="absolute top-6 right-5 text-blue-500 cursor-pointer select-none" onClick={()=>{setPassVisible((v)=>!v)}}>{passVisible?"hide":"show"}</span>
       </div>
+      <button type="submit" className="p-3 bg-blue-500 text-white rounded-full text-center cursor-pointer select-none" onClick={()=>{SubmitAction()}}>Login</button>
       <Link className="text-blue-500 mt-2" to={"/"}>Forgot password?</Link>
-      <button className="hidden" type="submit">Submit</button>
     </form>
-    <a className="p-3 bg-blue-500 text-white rounded-full text-center cursor-pointer select-none" onClick={()=>{SubmitAction()}}>Login</a>
     <DemoLoginButton setLoginSuccess={setLoginSuccess} />
   </UserForm>
   )
 }
 
 function DemoLoginButton(props:{setLoginSuccess:(_v:boolean)=>void}) {
-  return <a className="p-3 bg-green-500 text-white rounded-full text-center cursor-pointer select-none mt-2" onClick={async () => { LoginAction("demo@demo.com", "demo", props.setLoginSuccess); } }>Login with demo account</a>;
+  return <button className="p-3 bg-green-500 text-white rounded-full text-center cursor-pointer select-none mt-1" onClick={async () => { LoginAction("demo@demo.com", "demo", props.setLoginSuccess); } }>Login with demo account</button>;
 }
 
 async function LoginAction(pEmail:string, pPass:string, pCallBack:(_result:boolean)=>void){

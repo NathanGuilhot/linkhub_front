@@ -115,12 +115,12 @@ export function Dashboard() {
       <BackgroundColorSelector bgcolor={bgColor} setbgcolor={(new_color)=>{EditField(new_color, "bgcolor", setBgColor)}} />
       <Link to="/" className="absolute p-3 top-0 left-0 hover:underline cursor-pointer select-none  shadow rounded-full m-2 bg-slate-100 hover:bg-slate-200"
         onClick={()=>{window.localStorage.clear()}}>
-        {"Logout"}
+        Logout
       </Link>
       <AvatarUploadButton avatar={avatar} isPremium={isPremium} user_token={user_token} setAvatar={setAvatar} setSavedFeedbackStage={setSavedFeedbackStage} />
       <a href={`${import.meta.env.VITE_SERVER_URL}/${user_id}`} target="_blank"
           className="absolute p-3 top-0 right-0 hover:underline cursor-pointer select-none shadow rounded-full m-2 bg-slate-100 hover:bg-slate-200">
-        {"View your linkhub"}
+        View your linkhub
       </a>
       
       <form onSubmit={(e)=>{
@@ -148,7 +148,7 @@ export function Dashboard() {
       add={AddLink}
       remove={RemoveLink}
       />)}
-    {!isPremium && <a className="absolute bottom-0 p-5 bg-yellow-300 hover:bg-white rounded-full -mb-20 cursor-pointer select-none"
+    {!isPremium && <button className="absolute bottom-0 p-5 bg-yellow-300 hover:bg-white rounded-full -mb-20 cursor-pointer select-none"
       onClick={()=>{
         if (premiumloading) return
         setPremiumloading(true)
@@ -169,7 +169,7 @@ export function Dashboard() {
           }
         )})
       }}
-    >{premiumloading?<img className="w-6" src={loadIcon} />:"Go Premium"}</a>}
+    >{premiumloading?<img className="w-6" src={loadIcon} />:"Go Premium"}</button>}
     </div>
     }</>
     :<p>Loading profile...</p>}

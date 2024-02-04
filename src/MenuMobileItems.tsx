@@ -8,12 +8,12 @@ export function MenuMobileItems(props: { children?: ReactNode; subitems?: { text
 
   return (
     <>
-      <a className={"flex text-green-800 text-2xl pt-5 pb-5 cursor-pointer select-none " + (hasSubItems ? "" : "hover:bg-white") + (props.isSubItem ? " pl-5 font-bold" : " pl-1 font-extrabold")}
+      <button className={"flex text-green-800 text-2xl pt-5 pb-5 cursor-pointer select-none " + (hasSubItems ? "" : "hover:bg-white") + (props.isSubItem ? " pl-5 font-bold" : " pl-1 font-extrabold")}
         onClick={() => { if (hasSubItems) setSubItemsOpen((v) => !v); else console.log("Access link : " + props.href); }}
       >
         <span className="ml-2">{props.children}</span>
         <span className="ml-auto mr-10">{hasSubItems ? <img src={chevronIcon} alt="arrow" className={"h-8 " + (subItemsOpen ? "rotate-180" : "")} /> : null}</span>
-      </a>
+      </button>
       {subItemsOpen ?
         props.subitems?.map((i) => <MenuMobileItems key={i.text} href={i.text} isSubItem={true}>{i.text}</MenuMobileItems>)
         : null}
