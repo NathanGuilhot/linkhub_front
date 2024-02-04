@@ -15,18 +15,7 @@ function App() {
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <LandingPage menuOpen={menuOpen} setMenuOpen={setMenuOpen}/>,
-      // errorElement: <ErrorPage />,
-      // children:[
-      //   {
-      //     path: "/login",
-      //     element: <LoginForm SubmitAction={(pId:number)=>{setLogged(pId)}} />,
-      //   },
-      //   {
-      //     path: "/register",
-      //     element: <RegisterForm SubmitAction={(pId:number)=>{setLogged(pId)}} />,
-      //   },
-      // ]
+      element: <LandingPage menuOpen={menuOpen} setMenuOpen={setMenuOpen}/>
     },
     {
       path: "/login",

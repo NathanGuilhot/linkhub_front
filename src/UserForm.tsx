@@ -62,12 +62,13 @@ export function LoginForm() {
       <Link className="text-blue-500 mt-2" to={"/"}>Forgot password?</Link>
     </form>
     <a className="p-3 bg-blue-500 text-white rounded-full text-center cursor-pointer select-none" onClick={()=>{SubmitAction()}}>Login</a>
-    {/* <hr className="m-5"/>
-    <Link className="p-3 bg-white text-black rounded-full text-center border-solid border-2" to={"/"} onClick={() => {}}>
-      Login with Github
-    </Link> */}
+    <DemoLoginButton setLoginSuccess={setLoginSuccess} />
   </UserForm>
   )
+}
+
+function DemoLoginButton(props:{setLoginSuccess:(_v:boolean)=>void}) {
+  return <a className="p-3 bg-green-500 text-white rounded-full text-center cursor-pointer select-none mt-2" onClick={async () => { LoginAction("demo@demo.com", "demo", props.setLoginSuccess); } }>Login with demo account</a>;
 }
 
 function TogglePasswordVisibility(pInputId:string, pSetPassVisible:(_v:boolean)=>void){
@@ -199,6 +200,7 @@ export function RegisterForm() {
         </div>
       </form>
       <a className="p-3 bg-blue-500 text-white rounded-full text-center select-none" href="#" onClick={()=>{SubmitAction()}}>Join now</a>
+      <DemoLoginButton setLoginSuccess={setLoginSuccess} />
       {/* <hr className="m-5"/>
       <Link className="p-3 bg-white text-black rounded-full text-center border-solid border-2 select-none" to={"/"} onClick={() => {}}>
         Login with Github
