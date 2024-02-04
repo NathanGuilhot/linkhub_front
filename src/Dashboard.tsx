@@ -117,38 +117,22 @@ export function Dashboard() {
         onClick={()=>{window.localStorage.clear()}}>
         {"Logout"}
       </Link>
-      <form className="-mt-10 mb-2 p-2 border-dashed border-2 border-gray hover:opacity-80 w-22 h-22 rounded-full cursor-pointer relative">
-        <input className="absolute w-20 h-20" type="file" id="avatar_upload_input" name="img" accept="image/*" onChange={
-          (event) => {
-            console.log("Avatar input entered...");
-            // const filename = (file.name);
-            const fileReader = new FileReader();
-            fileReader.addEventListener('load', (e:any)=>{
-              if (e.target !== null && e.target.result !== null) {
-                ScaleImageAndUpload(e.target.result as string, user_token, setAvatar, setSavedFeedbackStage);
-              }
-              });
-            if (event.target.files){
-              const file = event.target.files[0];
-              if (file!==null){
-                fileReader.readAsDataURL(file)
-              }
-            }
-
-        }
-        }/>
-        <label htmlFor="avatar_upload_input" className="cursor-pointer"><img src={`avatar/${avatar}`} className="bg-blue-300 w-20 h-20 rounded-full shadow"/></label>
-        {isPremium?<img className="absolute -right-3 bottom-0 drop-shadow-xl w-9" src={starIcon} />:null}
-      </form>
+      <AvatarUploadButton avatar={avatar} isPremium={isPremium} user_token={user_token} setAvatar={setAvatar} setSavedFeedbackStage={setSavedFeedbackStage} />
       <a href={`${import.meta.env.VITE_SERVER_URL}/${user_id}`} target="_blank"
           className="absolute p-3 top-0 right-0 hover:underline cursor-pointer select-none shadow rounded-full m-2 bg-slate-100 hover:bg-slate-200">
         {"View your linkhub"}
       </a>
       
+      <form onSubmit={(e)=>{
+        e.preventDefault();
+        if (document.activeElement instanceof HTMLElement) document.activeElement.blur();
+      }}>
       <input className="p-3 w-full text-center text-2xl mb-5 border-dashed border-2 border-gray rounded-full"
-        defaultValue={username} onKeyDown={(e) => { if (e.key === 'Enter') { e.currentTarget.blur() } }} onChange={(e)=>{EditField(e.target.value, "name", setUsername)}} />
+        defaultValue={username} onChange={(e)=>{EditField(e.target.value, "name", setUsername)}} />
       <input className="p-3 w-full text-center mb-10 border-dashed border-2 border-gray rounded-full"
-        defaultValue={tagline} onKeyDown={(e) => { if (e.key === 'Enter') { e.currentTarget.blur() } }} onChange={(e)=>{EditField(e.target.value, "tagline", setTagline)}} />
+        defaultValue={tagline} onChange={(e)=>{EditField(e.target.value, "tagline", setTagline)}} />
+      <button className="hidden" type="submit">Submit</button>
+      </form>
       <AddButton insertId={0} action={AddLink} />
       {links.map((l, l_id)=><ProfileEditLink key={l.id} text={l.text} target={l.target} color={l.color} id={l_id}
       edit={(text:string, target:string, color:string)=>{
@@ -192,25 +176,51 @@ export function Dashboard() {
   </div>);
 }
 
+function AvatarUploadButton(props:{avatar: string, isPremium: boolean, user_token: string, setAvatar:(_v:string)=>void, setSavedFeedbackStage:(_v:string)=>void}) {
+  const submitAvatar = useCallback((event:React.ChangeEvent<HTMLInputElement>) => {
+    console.log("Avatar input entered...");
+    const fileReader = new FileReader();
+    fileReader.addEventListener('load', (e:any)=>{
+      if (e.target !== null && e.target.result !== null) {
+        ScaleImageAndUpload(e.target.result as string, props.user_token, props.setAvatar, props.setSavedFeedbackStage);
+      }
+      });
+    if (event.target.files){
+      const file = event.target.files[0];
+      if (file!==null){
+        fileReader.readAsDataURL(file)
+      }
+    }
+  }, [])
+  
+  return <form className="-mt-10 mb-2 p-2 border-dashed border-2 border-gray hover:opacity-80 w-22 h-22 rounded-full cursor-pointer relative">
+    <input className="absolute w-20 h-20" type="file" id="avatar_upload_input" name="img" accept="image/*" onChange={submitAvatar} />
+    <label htmlFor="avatar_upload_input" className="cursor-pointer"><img src={`avatar/${props.avatar}`} className="bg-blue-300 w-20 h-20 rounded-full shadow" /></label>
+    {props.isPremium ? <img className="absolute -right-3 bottom-0 drop-shadow-xl w-9" src={starIcon} /> : null}
+  </form>;
+}
+
 function ProfileEditLink(props:{text:string, target:string, color:string, id:number, edit:(_text:string, _target:string, _color:string)=>void, add:(_id:number)=>void, remove:(_id:number)=>void}){
   return (
-  <div className="w-full relative">
+  <form className="w-full relative" onSubmit={(e:React.FormEvent<HTMLFormElement>)=>{
+    e.preventDefault();
+    if (document.activeElement instanceof HTMLElement) document.activeElement.blur();
+  }}>
       <ButtonColorSelector bgcolor={props.color} setbgcolor={(newcolor:string)=>{props.edit(props.text, props.target, newcolor)}}/>
       <DeleteButton insertId={props.id} action={props.remove} />
       <input className={`p-4 pt-3 pb-9 bg-${props.color}-500 text-white hover:bg-${props.color}-400 rounded-full m-2 w-full text-center border-dashed border-2 border-gray`}
         defaultValue={props.text}
-        onKeyDown={(e) => { if (e.key === 'Enter') { e.currentTarget.blur() } }}
         onChange={(e)=>{props.edit(e.target.value, props.target, props.color)}}
       />
       <div className="flex justify-center w-full">
         <input className={"absolute bottom-8 p-1 w-80 text-xs rounded-full text-center border-dashed border-2 border-gray"}
         defaultValue={props.target}
-        onKeyDown={(e) => { if (e.key === 'Enter') { e.currentTarget.blur() } }}
         onChange={(e)=>{props.edit(props.text, e.target.value, props.color)}}
       />
       </div>
+      <button className="hidden" type="submit">Submit</button>
       <AddButton insertId={props.id+1} action={props.add}/>
-  </div>)
+  </form>)
 }
 
 function AddButton(props:{insertId:number, action:(_id:number)=>void}){

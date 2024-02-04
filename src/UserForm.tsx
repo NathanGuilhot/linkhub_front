@@ -49,17 +49,16 @@ export function LoginForm() {
   <UserForm bottomLink={<Link to={"/register"}>New to LinkHub? <span className="text-blue-500">Join now</span></Link>}>
     <h1 className="text-3xl font-bold">Login</h1>
     <p>Login and start editing your links</p>
-    <form className="flex flex-col mt-3 mb-5">
+    <form className="flex flex-col mt-3 mb-5"  onSubmit={(e)=>{ e.preventDefault(); SubmitAction();}}>
       <input className="mb-2 mt-2 p-4 border-solid border-2 rounded" type="text" placeholder="Email"
-            defaultValue={email} onChange={(e)=>{setEmail(e.target.value)}}
-            onKeyDown={(e)=>{if (e.key == "Enter") SubmitAction()}}/>
+            defaultValue={email} onChange={(e)=>{setEmail(e.target.value)}}/>
       <div className="w-full relative">
         <input id="InputPass" className="w-full mb-2 mt-2 p-4 border-solid border-2 rounded" type={passVisible?"text":"password"} placeholder="Password"
-            defaultValue={password} onChange={(e)=>{setPass(e.target.value)}}
-            onKeyDown={(e)=>{if (e.key == "Enter") SubmitAction()}}/>
+            defaultValue={password} onChange={(e)=>{setPass(e.target.value)}}/>
         <span className="absolute top-6 right-5 text-blue-500 cursor-pointer select-none" onClick={()=>{setPassVisible((v)=>!v)}}>{passVisible?"hide":"show"}</span>
       </div>
       <Link className="text-blue-500 mt-2" to={"/"}>Forgot password?</Link>
+      <button className="hidden" type="submit">Submit</button>
     </form>
     <a className="p-3 bg-blue-500 text-white rounded-full text-center cursor-pointer select-none" onClick={()=>{SubmitAction()}}>Login</a>
     <DemoLoginButton setLoginSuccess={setLoginSuccess} />
@@ -161,7 +160,7 @@ export function RegisterForm() {
     <UserForm bottomLink={<Link to={"/login"}>Already have an account? <span className="text-blue-500">Login</span></Link>}>
       <h1 className="text-3xl font-bold">Register your LinkHub</h1>
       <p>Give access to your personality with one link</p>
-      <form className="flex flex-col mt-3 mb-5">
+      <form className="flex flex-col mt-3 mb-5" onSubmit={(e)=>{e.preventDefault(); SubmitAction()}}>
         <input className="mb-2 mt-2 p-4 border-solid border-2 rounded" type="text" placeholder="Username (linkhub.com/yourname)"
             defaultValue={name} onChange={(e)=>{
               e.target.value = e.target.value.toLowerCase()
@@ -169,25 +168,21 @@ export function RegisterForm() {
                 //NOTE(Nighten) The regex filter is used to prevent the user from copy-pasting wrong input into the field 
                 e.target.value = (e.target.value.match(username_regex_filter) || []).join('');
               }
-              setName(e.target.value)}}
-            onKeyDown={(e)=>{if (e.key == "Enter") SubmitAction()}}/>
+              setName(e.target.value)}}/>
         <input className="mb-2 mt-2 p-4 border-solid border-2 rounded" type="email" placeholder="Email"
-            defaultValue={email} onChange={(e)=>{setEmail(e.target.value)}}
-            onKeyDown={(e)=>{if (e.key == "Enter") SubmitAction()}}/>
+            defaultValue={email} onChange={(e)=>{setEmail(e.target.value)}}/>
         <div className="w-full relative">
           <input id="InputPass" className="w-full mb-2 mt-2 p-4 border-solid border-2 rounded" type={passVisible?"text":"password"} placeholder="Password"
-            defaultValue={password} onChange={(e)=>{setPass(e.target.value)}}
-            onKeyDown={(e)=>{if (e.key == "Enter") SubmitAction()}}/>
+            defaultValue={password} onChange={(e)=>{setPass(e.target.value)}}/>
           <span className="absolute top-6 right-5 text-blue-500 cursor-pointer select-none" onClick={()=>{setPassVisible((v)=>!v)}}>{passVisible?"hide":"show"}</span>
         </div>
         <div className="w-full relative">
           <input id="InputPassConfirm" className="w-full mb-2 mt-2 p-4 border-solid border-2 rounded" type={passConfirmVisible?"text":"password"} placeholder="Confirm"
-              defaultValue={password_confirm} onChange={(e)=>{setPassConfirm(e.target.value)}}
-              onKeyDown={(e)=>{if (e.key == "Enter") SubmitAction()}}/>
+              defaultValue={password_confirm} onChange={(e)=>{setPassConfirm(e.target.value)}}/>
           <span className="absolute top-6 right-5 text-blue-500 cursor-pointer select-none" onClick={()=>{setPassConfirmVisible((v)=>!v)}}>{passConfirmVisible?"hide":"show"}</span>
         </div>
+        <button className="p-3 bg-blue-500 text-white rounded-full text-center select-none" type="submit">Join now</button>
       </form>
-      <a className="p-3 bg-blue-500 text-white rounded-full text-center select-none" href="#" onClick={()=>{SubmitAction()}}>Join now</a>
       <DemoLoginButton setLoginSuccess={setLoginSuccess} />
     </UserForm>
     )
