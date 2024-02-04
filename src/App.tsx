@@ -1,48 +1,44 @@
-import { useState } from 'react'
-import './App.css'
+import { useState } from "react";
+import "./App.css";
 
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { LandingPage } from './LandingPage';
-import { Auth } from './Auth';
-import { ViewProfile } from './ViewProfile';
-import { Dashboard } from './Dashboard';
-import { LoginForm, RegisterForm } from './UserForm';
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { LandingPage } from "./LandingPage";
+import { Auth } from "./Auth";
+import { ViewProfile } from "./ViewProfile";
+import { Dashboard } from "./Dashboard";
+import { LoginForm, RegisterForm } from "./UserForm";
 
 function App() {
+  const [menuOpen, setMenuOpen] = useState<boolean>(false);
 
-  const [menuOpen, setMenuOpen] = useState<boolean>(false)
-  
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <LandingPage menuOpen={menuOpen} setMenuOpen={setMenuOpen}/>
+      element: <LandingPage menuOpen={menuOpen} setMenuOpen={setMenuOpen} />,
     },
     {
       path: "/login",
-      element: <LoginForm />
+      element: <LoginForm />,
     },
     {
       path: "/register",
-      element: <RegisterForm />
+      element: <RegisterForm />,
     },
     {
       path: "/edit",
-      element: <Dashboard />
+      element: <Dashboard />,
     },
     {
       path: "/auth",
-      element: <Auth />
+      element: <Auth />,
     },
     {
       path: "/:username_url",
-      element: <ViewProfile />
+      element: <ViewProfile />,
     },
+  ]);
 
-  ])
-
-  return (
-    <RouterProvider router={router} />
-  )
+  return <RouterProvider router={router} />;
 }
 
-export default App
+export default App;
